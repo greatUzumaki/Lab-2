@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab2</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+      integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body onload="Graph()">
+    <div class="chart">
+      <canvas id="speedChart"></canvas>
+    </div>
+    <div class="table">
+      <table>
+        <tr>
+          <td rowspan="2">Характеристика</td>
+          <td colspan="10">Месторождения</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+          <td>6</td>
+          <td>7</td>
+          <td>8</td>
+          <td>9</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>Запасы, млн. т</td>
+          <td>8.5</td>
+          <td>29.5</td>
+          <td>32.6</td>
+          <td>16.6</td>
+          <td>1.4</td>
+          <td>9</td>
+          <td>21.4</td>
+          <td>14.9</td>
+          <td>46.3</td>
+          <td>3.5</td>
+        </tr>
+        <tr>
+          <td>Добыча, млн. т/год</td>
+          <td>0.23</td>
+          <td>1.35</td>
+          <td>1.65</td>
+          <td>0.085</td>
+          <td>0.13</td>
+          <td>0.14</td>
+          <td>0.94</td>
+          <td>1.1</td>
+          <td>0.37</td>
+          <td>0.13</td>
+        </tr>
+      </table>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
