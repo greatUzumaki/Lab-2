@@ -6,63 +6,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lab2</title>
     <link rel="stylesheet" href="/style.css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato" />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-      integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
-      crossorigin="anonymous"
-    ></script>
   </head>
-  <body onload="Graph()">
-    <div class="chart">
-      <canvas id="speedChart"></canvas>
+  <body>
+    <div class="main">
+      <div class="table">
+        <table border="1">
+          <tr>
+            <td rowspan="2">Характеристика</td>
+            <td colspan="10">Месторождения</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>Запасы, млн. т</td>
+            <td><input type="number" value="8.5" id="z1" /></td>
+            <td><input type="number" value="29.5" id="z2" /></td>
+            <td><input type="number" value="32.6" id="z3" /></td>
+            <td><input type="number" value="16.6" id="z4" /></td>
+            <td><input type="number" value="1.4" id="z5" /></td>
+            <td><input type="number" value="9" id="z6" /></td>
+            <td><input type="number" value="21.4" id="z7" /></td>
+            <td><input type="number" value="14.9" id="z8" /></td>
+            <td><input type="number" value="46.3" id="z9" /></td>
+            <td><input type="number" value="3.5" id="z10" /></td>
+          </tr>
+          <tr>
+            <td>Добыча, млн. т/год</td>
+            <td><input type="number" value="0.23" id="d1" /></td>
+            <td><input type="number" value="1.35" id="d2" /></td>
+            <td><input type="number" value="1.65" id="d3" /></td>
+            <td><input type="number" value="0.085" id="d4" /></td>
+            <td><input type="number" value="0.13" id="d5" /></td>
+            <td><input type="number" value="0.14" id="d6" /></td>
+            <td><input type="number" value="0.94" id="d7" /></td>
+            <td><input type="number" value="1.1" id="d8" /></td>
+            <td><input type="number" value="0.37" id="d9" /></td>
+            <td><input type="number" value="0.13" id="d10" /></td>
+          </tr>
+        </table>
+      </div>
+      <div class="select">
+        <fieldset>
+          <legend>Множества</legend>
+          <p>
+            <input name="mn" type="radio" id="zapas" />По запасам кварцевых
+            песков месторождение y существенно богаче месторождения х
+          </p>
+          <p>
+            <input name="mn" type="radio" id="objem" />Объемы добычи кварцевых
+            песков на месторождениях x и y примерно одинаковы
+          </p>
+          <p>
+            <button class="button" onclick="CreateTable()">Заполнить</button>
+          </p>
+        </fieldset>
+      </div>
     </div>
-    <div class="table">
-      <table>
-        <tr>
-          <td rowspan="2">Характеристика</td>
-          <td colspan="10">Месторождения</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-          <td>4</td>
-          <td>5</td>
-          <td>6</td>
-          <td>7</td>
-          <td>8</td>
-          <td>9</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>Запасы, млн. т</td>
-          <td>8.5</td>
-          <td>29.5</td>
-          <td>32.6</td>
-          <td>16.6</td>
-          <td>1.4</td>
-          <td>9</td>
-          <td>21.4</td>
-          <td>14.9</td>
-          <td>46.3</td>
-          <td>3.5</td>
-        </tr>
-        <tr>
-          <td>Добыча, млн. т/год</td>
-          <td>0.23</td>
-          <td>1.35</td>
-          <td>1.65</td>
-          <td>0.085</td>
-          <td>0.13</td>
-          <td>0.14</td>
-          <td>0.94</td>
-          <td>1.1</td>
-          <td>0.37</td>
-          <td>0.13</td>
-        </tr>
-      </table>
-    </div>
+    <div id="content" class="table"></div>
     <script src="script.js"></script>
   </body>
 </html>

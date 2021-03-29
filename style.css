@@ -1,13 +1,9 @@
-.chart {
-  width: 1000px;
-  height: 50px;
+.main {
+  display: flex;
 }
 
-.buttons {
-  display: flex;
-  position: relative;
-  bottom: 35px;
-  left: 68%;
+.select {
+  margin-left: 3rem;
 }
 
 .buttons .check {
@@ -18,8 +14,8 @@
   display: block;
   text-align: center;
   position: relative;
-  top: 500px;
-  left: 40px;
+  top: 8px;
+  left: 10px;
 }
 
 .editButton button {
@@ -78,7 +74,7 @@ th {
   background-color: azure;
 }
 
-.buttons .button {
+.button {
   cursor: pointer;
   width: 120px;
   height: 45px;
@@ -86,7 +82,7 @@ th {
   outline: none;
 }
 
-.buttons .button:hover {
+.button:hover {
   background-color: azure;
 }
 
