@@ -31,6 +31,8 @@ function ZapasTable() {
   console.log(Arr);
 
   GenerateTable(Arr);
+
+  document.getElementById('svoistvo').innerHTML = 'da';
 }
 
 // Разность

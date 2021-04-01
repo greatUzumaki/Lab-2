@@ -55,31 +55,42 @@
           </tr>
         </table>
       </div>
-      <div class="select">
-        <fieldset>
-          <legend>Множества</legend>
-          <p>
-            <input name="mn" type="radio" id="zapas" />По запасам кварцевых
-            песков месторождение y существенно богаче месторождения х
-          </p>
-          <p>
-            <input name="mn" type="radio" id="objem" />Объемы добычи кварцевых
-            песков на месторождениях x и y примерно одинаковы
-          </p>
-          <p>
-            <button class="button" onclick="CreateTable()">Заполнить</button>
-            <button
-              class="button"
-              onclick="KillTable()"
-              style="margin-left: 10px"
-            >
-              Убить таблицу
-            </button>
-          </p>
-        </fieldset>
+      <div class="field">
+        <div class="select">
+          <fieldset>
+            <legend>Множества</legend>
+            <p>
+              <input name="mn" type="radio" id="zapas" />По запасам кварцевых
+              песков месторождение y существенно богаче месторождения х
+            </p>
+            <p>
+              <input name="mn" type="radio" id="objem" />Объемы добычи кварцевых
+              песков на месторождениях x и y примерно одинаковы
+            </p>
+            <p>
+              <button class="button" onclick="CreateTable()">Заполнить</button>
+              <button
+                class="button"
+                onclick="KillTable()"
+                style="margin-left: 10px"
+              >
+                Убить таблицу
+              </button>
+            </p>
+          </fieldset>
+        </div>
+        <div class="svoistva">
+          <fieldset>
+            <legend>Свойства</legend>
+            <p>Первое св-во - <span id="svoistvo1"></span></p>
+            <p>Второе св-во - <span id="svoistvo2"></span></p>
+            <p>Третье св-во - <span id="svoistvo3"></span></p>
+            <p>Четвертое св-во - <span id="svoistvo4"></span></p>
+          </fieldset>
+        </div>
       </div>
     </div>
-    <div id="content" class="table"></div>
+    <div id="content" class="tableNew"></div>
     <script src="script.js"></script>
   </body>
 </html>

@@ -6,6 +6,17 @@
   margin-left: 3rem;
 }
 
+.svoistva {
+  width: 366px;
+  margin-top: 20px;
+}
+
+.field {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
 .mesto {
   font-weight: bold;
   background-color: cornflowerblue;
@@ -21,6 +32,29 @@
   position: relative;
   top: 8px;
   left: 10px;
+}
+
+.tableNew {
+  display: block;
+  text-align: center;
+  position: fixed;
+  margin-top: 10px;
+  margin-left: 10px;
+  top: 200px;
+}
+
+.tableNew input {
+  width: 50px;
+}
+
+.tableNew table {
+  border-spacing: 5px 5px;
+}
+
+.tableNew td,
+th {
+  padding: 4px 15px;
+  border: 1px solid #ccc;
 }
 
 .table table {
