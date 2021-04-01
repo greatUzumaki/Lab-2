@@ -19,7 +19,16 @@ function ZapasTable() {
   let z10 = document.getElementById('z10').value;
 
   let Arr = [z1, z2, z3, z4, z5, z6, z7, z8, z9, z10];
-  Arr = Arr.map((x) => FuncS(x));
+
+  Arr = RaznZapas(Arr);
+  Arr = Arr.map((subArr) => subArr.map((x) => Number(x)));
+  console.log(Arr);
+
+  let max = Max(Arr);
+  console.log(max);
+
+  Arr = Arr.map((subArr) => subArr.map((x) => FuncS(x, max).toFixed(3)));
+  console.log(Arr);
 
   GenerateTable(Arr);
 }
@@ -38,7 +47,18 @@ function ObjemTable() {
   let d10 = document.getElementById('d10').value;
 
   let Arr = [d1, d2, d3, d4, d5, d6, d7, d8, d9, d10];
-  Arr = Arr.map((x) => FuncS(x));
+
+  Arr = RaznObjem(Arr);
+  Arr = Arr.map((subArr) => subArr.map((x) => Number(x)));
+  console.log(Arr);
+
+  let max = Max(Arr);
+  console.log(max);
+
+  Arr = Arr.map((subArr) => subArr.map((x) => FuncT(x, max).toFixed(3)));
+  console.log(Arr);
+
+  GenerateTable(Arr);
 }
 
 // Генерация таблицы
@@ -67,17 +87,56 @@ function KillTable() {
   document.getElementById('content').innerHTML = '';
 }
 
-function FuncS(x) {
+function RaznZapas(arr) {
+  let newArr = [[]];
+  for (let i = 0; i < arr.length; i++) {
+    newArr[i] = [];
+    for (let j = 0; j < arr.length; j++) {
+      let res = arr[i] - arr[j];
+      newArr[i][j] = res.toFixed(2);
+    }
+  }
+  return newArr;
+}
+
+function RaznObjem(arr) {
+  let newArr = [[]];
+  for (let i = 0; i < arr.length; i++) {
+    newArr[i] = [];
+    for (let j = 0; j < arr.length; j++) {
+      let res = arr[i] - arr[j];
+      res = Math.abs(res);
+      newArr[i][j] = res.toFixed(2);
+    }
+  }
+  return newArr;
+}
+
+function FuncS(x, max) {
+  let sred = max / 2;
   if (x < 0) return 0;
-  else if (x >= 0 && x <= 22.45) return 2 * (x / 44.9) * (x / 44.9);
-  else if (x >= 22.45 && x <= 44.9)
-    return 1 - 2 * ((((x - 44.9) / (44.9 - 0)) * (x - 44.9)) / (44.9 - 0));
+  else if (x >= 0 && x <= sred) return 2 * (x / max) * (x / max);
+  else if (x >= sred && x <= max)
+    return 1 - 2 * ((((x - max) / (max - 0)) * (x - max)) / (max - 0));
   else return 1;
 }
 
-function FuncT(x) {
+function FuncT(x, max) {
   if (x < -1.57) return 0;
   else if (x >= -1.57 && x <= 0) return (x + 1.57) / 1.57;
+  //спросит про эту строчку у Дыптан, у нас же нет минусов. И спросить про то что нет нолей во 2 таблице
   else if (x >= 0 && x <= 1.57) return (1.57 - x) / 1.57;
   else return 0;
+}
+
+function Max(Arr) {
+  let max = Arr[0][0];
+  for (let i = 0; i < Arr.length; i++) {
+    for (let j = 0; j < Arr.length; j++) {
+      if (Arr[i][j] > max) {
+        max = Arr[i][j];
+      }
+    }
+  }
+  return max;
 }
