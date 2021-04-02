@@ -1,9 +1,9 @@
 // Проверка выбора
-function CreateTable() {
+CreateTable = () => {
   if (document.getElementById('zapas').checked) ZapasTable();
   else if (document.getElementById('objem').checked) ObjemTable();
   else alert('Выберите множество!');
-}
+};
 
 // Заполнение первой таблицы
 function ZapasTable() {
@@ -32,11 +32,14 @@ function ZapasTable() {
 
   GenerateTable(Arr);
 
-  document.getElementById('svoistvo').innerHTML = 'da';
+  document.getElementById('svoistvo1').innerHTML = 'daawdwad';
+  document.getElementById('svoistvo2').innerHTML = 'daawdwad';
+  document.getElementById('svoistvo3').innerHTML = 'daawdwad';
+  document.getElementById('svoistvo4').innerHTML = 'daawdwad';
 }
 
 // Разность
-function RaznZapas(arr) {
+RaznZapas = (arr) => {
   let newArr = [[]];
   for (let i = 0; i < arr.length; i++) {
     newArr[i] = [];
@@ -46,16 +49,16 @@ function RaznZapas(arr) {
     }
   }
   return newArr;
-}
+};
 
-function FuncS(x, max) {
+FuncS = (x, max) => {
   let sred = max / 2;
   if (x < 0) return 0;
   else if (x >= 0 && x <= sred) return 2 * (x / max) * (x / max);
   else if (x >= sred && x <= max)
     return 1 - 2 * ((((x - max) / (max - 0)) * (x - max)) / (max - 0));
   else return 1;
-}
+};
 
 // Заполнение второй таблицы
 function ObjemTable() {
@@ -86,7 +89,7 @@ function ObjemTable() {
 }
 
 // Разность
-function RaznObjem(arr) {
+RaznObjem = (arr) => {
   let newArr = [[]];
   for (let i = 0; i < arr.length; i++) {
     newArr[i] = [];
@@ -97,18 +100,18 @@ function RaznObjem(arr) {
     }
   }
   return newArr;
-}
+};
 
-function FuncT(x, max) {
+FuncT = (x, max) => {
   if (x < -1.57) return 0;
   else if (x >= -1.57 && x <= 0) return (x + 1.57) / 1.57;
   //спросит про эту строчку у Дыптан, у нас же нет минусов. И спросить про то что нет нолей во 2 таблице
   else if (x >= 0 && x <= 1.57) return (1.57 - x) / 1.57;
   else return 0;
-}
+};
 
 // Макс элемент
-function Max(Arr) {
+Max = (Arr) => {
   let max = Arr[0][0];
   for (let i = 0; i < Arr.length; i++) {
     for (let j = 0; j < Arr.length; j++) {
@@ -118,10 +121,10 @@ function Max(Arr) {
     }
   }
   return max;
-}
+};
 
 // Генерация таблицы
-function GenerateTable(arr) {
+GenerateTable = (arr) => {
   let html = '<table border="1">';
 
   html += '<tr><td></td>';
@@ -141,9 +144,9 @@ function GenerateTable(arr) {
   html += '</table>';
 
   document.getElementById('content').innerHTML = html;
-}
+};
 
 // Удаление таблицы
-function KillTable() {
+KillTable = () => {
   document.getElementById('content').innerHTML = '';
-}
+};
