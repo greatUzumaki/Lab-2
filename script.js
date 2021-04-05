@@ -1,5 +1,5 @@
 // Проверка выбора
-CreateTable = () => {
+const CreateTable = () => {
   if (document.getElementById('zapas').checked) ZapasTable();
   else if (document.getElementById('objem').checked) ObjemTable();
   else alert('Выберите множество!');
@@ -32,14 +32,11 @@ function ZapasTable() {
 
   GenerateTable(Arr);
 
-  document.getElementById('svoistvo1').innerHTML = 'daawdwad';
-  document.getElementById('svoistvo2').innerHTML = 'daawdwad';
-  document.getElementById('svoistvo3').innerHTML = 'daawdwad';
-  document.getElementById('svoistvo4').innerHTML = 'daawdwad';
+  Svoistva(Arr);
 }
 
 // Разность
-RaznZapas = (arr) => {
+const RaznZapas = (arr) => {
   let newArr = [[]];
   for (let i = 0; i < arr.length; i++) {
     newArr[i] = [];
@@ -51,7 +48,7 @@ RaznZapas = (arr) => {
   return newArr;
 };
 
-FuncS = (x, max) => {
+const FuncS = (x, max) => {
   let sred = max / 2;
   if (x < 0) return 0;
   else if (x >= 0 && x <= sred) return 2 * (x / max) * (x / max);
@@ -86,10 +83,12 @@ function ObjemTable() {
   console.log(Arr);
 
   GenerateTable(Arr);
+
+  Svoistva(Arr);
 }
 
 // Разность
-RaznObjem = (arr) => {
+const RaznObjem = (arr) => {
   let newArr = [[]];
   for (let i = 0; i < arr.length; i++) {
     newArr[i] = [];
@@ -102,7 +101,7 @@ RaznObjem = (arr) => {
   return newArr;
 };
 
-FuncT = (x, max) => {
+const FuncT = (x, max) => {
   if (x < -1.57) return 0;
   else if (x >= -1.57 && x <= 0) return (x + 1.57) / 1.57;
   //спросит про эту строчку у Дыптан, у нас же нет минусов. И спросить про то что нет нолей во 2 таблице
@@ -111,7 +110,7 @@ FuncT = (x, max) => {
 };
 
 // Макс элемент
-Max = (Arr) => {
+const Max = (Arr) => {
   let max = Arr[0][0];
   for (let i = 0; i < Arr.length; i++) {
     for (let j = 0; j < Arr.length; j++) {
@@ -124,7 +123,7 @@ Max = (Arr) => {
 };
 
 // Генерация таблицы
-GenerateTable = (arr) => {
+const GenerateTable = (arr) => {
   let html = '<table border="1">';
 
   html += '<tr><td></td>';
@@ -147,6 +146,32 @@ GenerateTable = (arr) => {
 };
 
 // Удаление таблицы
-KillTable = () => {
+const KillTable = () => {
   document.getElementById('content').innerHTML = '';
+  document.getElementById('svoistvo1').innerHTML = '';
+  document.getElementById('svoistvo2').innerHTML = '';
+  document.getElementById('svoistvo3').innerHTML = '';
+  document.getElementById('svoistvo4').innerHTML = '';
+  document.getElementById('svoistvo5').innerHTML = '';
+  document.getElementById('svoistvo6').innerHTML = '';
+  document.getElementById('svoistvo7').innerHTML = '';
+};
+
+// Вычисление свойств
+const Svoistva = (arr) => {
+  let refl = document.getElementById('svoistvo1');
+  let antiRefl = document.getElementById('svoistvo2');
+  let simmetr = document.getElementById('svoistvo3');
+  let antiSimmetr = document.getElementById('svoistvo4');
+  let aSimmetr = document.getElementById('svoistvo5');
+  let lin = document.getElementById('svoistvo6');
+  let tranz = document.getElementById('svoistvo7');
+
+  // Линейность
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length; j++) {
+      if (Math.max(arr[i][j], arr[j][i]) != 1) lin.innerHTML = 'Сильно';
+      if (Math.max(arr[i][j], arr[j][i]) <= 0) lin.innerHTML = 'Слабо';
+    }
+  }
 };
