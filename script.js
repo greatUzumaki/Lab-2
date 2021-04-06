@@ -159,19 +159,81 @@ const KillTable = () => {
 
 // Вычисление свойств
 const Svoistva = (arr) => {
-  let refl = document.getElementById('svoistvo1');
-  let antiRefl = document.getElementById('svoistvo2');
-  let simmetr = document.getElementById('svoistvo3');
-  let antiSimmetr = document.getElementById('svoistvo4');
-  let aSimmetr = document.getElementById('svoistvo5');
-  let lin = document.getElementById('svoistvo6');
-  let tranz = document.getElementById('svoistvo7');
+  let Sirefl = false;
+  let Slrefl = false;
+  let Sianti = false;
+  let Slanti = false;
+  let Simetr = true;
+  let AntiSim = true;
+  let AsSim = true;
+  let Line = true;
+  let Tranz = true;
 
   // Линейность
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length; j++) {
-      if (Math.max(arr[i][j], arr[j][i]) != 1) lin.innerHTML = 'Сильно';
-      if (Math.max(arr[i][j], arr[j][i]) <= 0) lin.innerHTML = 'Слабо';
+      if (Math.max(arr[i][j], arr[j][i]) != 1) Line = false;
+      if (Math.max(arr[i][j], arr[j][i]) <= 0) Line = false;
     }
   }
+
+  let m = [],
+    mm;
+  // Транзитивность
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      for (let k = 0; k < 10; k++) {
+        m[k] = Math.min(arr[i][k], arr[k][i]);
+      }
+      mm = m[1];
+      for (let l = 1; l < 10; l++) {
+        if (mm < m[l]) mm = m[l];
+      }
+      if (arr[i][j] < mm) Tranz = false;
+    }
+  }
+
+  for (let i = 0; i < 10; i++) {
+    if (arr[i][i] == 1) {
+      // Рефлексивность
+      for (let k = 1; k < 10; k++) {
+        for (let j = 0; j < k - 1; j++) {
+          if (arr[k][j] == 1) Slrefl = true;
+          //Слабая рефлексивность
+          else Sirefl = true; // Сильная рефлексивность
+        }
+      }
+    } else if (arr[i][i] == 0) {
+      //Антирефлексивность
+      for (let k = 1; k < 10; k++) {
+        for (let j = 0; j < k - 1; j++) {
+          if (arr[k][j] == 0) Slanti = true; //Слабая антирефлексивность
+          if (Slanti == false) Sianti = true; // Сильная антирефлексивность
+        }
+      }
+    }
+  }
+
+  for (let i = 1; i < 10; i++) {
+    for (let j = 0; j < i - 1; j++) {
+      if (arr[i][j] != arr[j][i]) {
+        Simetr = false; // Симметричность
+      }
+      if (arr[i][i] == 1) {
+        AsSim = false;
+        if (Math.min(arr[i][j], arr[j][i]) != 0) AntiSim = false; // Антисимметрично
+      } else {
+        AntiSim = false;
+        if (Math.min(arr[i][j], arr[j][i]) != 0) AsSim = false; // Ассиметрично
+      }
+    }
+  }
+
+  document.getElementById('svoistvo1').innerHTML = Slrefl ? 'Слабо' : 'Сильно';
+  document.getElementById('svoistvo2').innerHTML = Slanti ? 'Слабо' : 'Сильно';
+  document.getElementById('svoistvo3').innerHTML = Simetr ? 'Да' : 'Нет';
+  document.getElementById('svoistvo4').innerHTML = AntiSim ? 'Да' : 'Нет';
+  document.getElementById('svoistvo5').innerHTML = AsSim ? 'Да' : 'Нет';
+  document.getElementById('svoistvo6').innerHTML = Line ? 'Сильно' : 'Слабо';
+  document.getElementById('svoistvo7').innerHTML = Tranz ? 'Да' : 'Нет';
 };
