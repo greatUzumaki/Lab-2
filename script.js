@@ -42,7 +42,7 @@ const RaznZapas = (arr) => {
     newArr[i] = [];
     for (let j = 0; j < arr.length; j++) {
       let res = arr[i] - arr[j];
-      newArr[i][j] = res.toFixed(2);
+      newArr[i][j] = res.toFixed(3);
     }
   }
   return newArr;
@@ -95,17 +95,15 @@ const RaznObjem = (arr) => {
     for (let j = 0; j < arr.length; j++) {
       let res = arr[i] - arr[j];
       res = Math.abs(res);
-      newArr[i][j] = res.toFixed(2);
+      newArr[i][j] = res.toFixed(3);
     }
   }
   return newArr;
 };
 
 const FuncT = (x, max) => {
-  if (x < -1.57) return 0;
-  else if (x >= -1.57 && x <= 0) return (x + 1.57) / 1.57;
   //спросит про эту строчку у Дыптан, у нас же нет минусов. И спросить про то что нет нолей во 2 таблице
-  else if (x >= 0 && x <= 1.57) return (1.57 - x) / 1.57;
+  if (x >= 0 && x <= 1.565) return (1.565 - x) / 1.565;
   else return 0;
 };
 
@@ -119,7 +117,7 @@ const Max = (Arr) => {
       }
     }
   }
-  return max;
+  return max.toFixed(3);
 };
 
 // Генерация таблицы
