@@ -7,18 +7,10 @@ const CreateTable = () => {
 
 // Заполнение первой таблицы
 function ZapasTable() {
-  let z1 = document.getElementById('z1').value;
-  let z2 = document.getElementById('z2').value;
-  let z3 = document.getElementById('z3').value;
-  let z4 = document.getElementById('z4').value;
-  let z5 = document.getElementById('z5').value;
-  let z6 = document.getElementById('z6').value;
-  let z7 = document.getElementById('z7').value;
-  let z8 = document.getElementById('z8').value;
-  let z9 = document.getElementById('z9').value;
-  let z10 = document.getElementById('z10').value;
-
-  let Arr = [z1, z2, z3, z4, z5, z6, z7, z8, z9, z10];
+  let Arr = [];
+  for (let i = 1; i < 11; i++) {
+    Arr.push(Number(document.getElementById(`z${i}`).value));
+  }
 
   Arr = RaznZapas(Arr);
   Arr = Arr.map((subArr) => subArr.map((x) => Number(x)));
@@ -59,18 +51,10 @@ const FuncS = (x, max) => {
 
 // Заполнение второй таблицы
 function ObjemTable() {
-  let d1 = document.getElementById('d1').value;
-  let d2 = document.getElementById('d2').value;
-  let d3 = document.getElementById('d3').value;
-  let d4 = document.getElementById('d4').value;
-  let d5 = document.getElementById('d5').value;
-  let d6 = document.getElementById('d6').value;
-  let d7 = document.getElementById('d7').value;
-  let d8 = document.getElementById('d8').value;
-  let d9 = document.getElementById('d9').value;
-  let d10 = document.getElementById('d10').value;
-
-  let Arr = [d1, d2, d3, d4, d5, d6, d7, d8, d9, d10];
+  let Arr = [];
+  for (let i = 1; i < 11; i++) {
+    Arr.push(Number(document.getElementById(`d${i}`).value));
+  }
 
   Arr = RaznObjem(Arr);
   Arr = Arr.map((subArr) => subArr.map((x) => Number(x)));
@@ -103,7 +87,7 @@ const RaznObjem = (arr) => {
 
 const FuncT = (x, max) => {
   //спросит про эту строчку у Дыптан, у нас же нет минусов. И спросить про то что нет нолей во 2 таблице
-  if (x >= 0 && x <= 1.565) return (1.565 - x) / 1.565;
+  if (x >= 0 && x <= max) return (max - x) / max;
   else return 0;
 };
 
@@ -146,38 +130,86 @@ const GenerateTable = (arr) => {
 // Удаление таблицы
 const KillTable = () => {
   document.getElementById('content').innerHTML = '';
-  document.getElementById('svoistvo1').innerHTML = '';
-  document.getElementById('svoistvo2').innerHTML = '';
-  document.getElementById('svoistvo3').innerHTML = '';
-  document.getElementById('svoistvo4').innerHTML = '';
-  document.getElementById('svoistvo5').innerHTML = '';
-  document.getElementById('svoistvo6').innerHTML = '';
-  document.getElementById('svoistvo7').innerHTML = '';
+  for (let i = 1; i < 8; i++) {
+    document.getElementById(`svoistvo${i}`).innerHTML = '';
+  }
 };
 
 // Вычисление свойств
 const Svoistva = (arr) => {
-  let Sirefl = false;
-  let Slrefl = false;
-  let Sianti = false;
-  let Slanti = false;
-  let Simetr = true;
-  let AntiSim = true;
-  let AsSim = true;
-  let Line = true;
-  let Tranz = true;
+  // рефлексивность
+  let refl = true;
+  let strongRefl = true;
+  let strongAntiRefl = true;
 
-  // Линейность
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i][i] != 1) {
+      refl = false;
+      break;
+    }
+  }
+
+  if (refl) {
+    out: for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < arr.length; j++) {
+        if (i != j) {
+          if (arr[i][j] == 1) {
+            strongRefl = false;
+            break out;
+          }
+        }
+      }
+    }
+  } else {
+    out: for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < arr.length; j++) {
+        if (i != j) {
+          if (arr[i][j] == 0) {
+            strongAntiRefl = false;
+            break out;
+          }
+        }
+      }
+    }
+  }
+
+  // симметричность
+
+  let simm = true;
+  let antiSimm = true;
+  let aSimm = true;
+
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length; j++) {
-      if (Math.max(arr[i][j], arr[j][i]) != 1) Line = false;
-      if (Math.max(arr[i][j], arr[j][i]) <= 0) Line = false;
+      if (arr[i][j] != arr[j][i]) {
+        simm = false;
+      }
+
+      if (i != j) {
+        // возможно тут неправильно и в будущем надо будет исправить
+
+        if (arr[i][j] != 0 || arr[j][i] != 0) {
+          antiSimm = false; //
+        }
+      }
+
+      if (arr[i][j] != 0 || arr[j][i] != 0) {
+        aSimm = false;
+      }
+    }
+  }
+
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      if (Math.max(arr[i][j], arr[j][i]) != 1) LineSil = false; // Сильно линейно
+      if (Math.max(arr[i][j], arr[j][i]) <= 0) LineSl = false;
+      else Line = false; // Слабо линейно
     }
   }
 
   let m = [],
     mm;
-  // Транзитивность
+
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       for (let k = 0; k < 10; k++) {
@@ -190,48 +222,4 @@ const Svoistva = (arr) => {
       if (arr[i][j] < mm) Tranz = false;
     }
   }
-
-  for (let i = 0; i < 10; i++) {
-    if (arr[i][i] == 1) {
-      // Рефлексивность
-      for (let k = 1; k < 10; k++) {
-        for (let j = 0; j < k - 1; j++) {
-          if (arr[k][j] == 1) Slrefl = true;
-          //Слабая рефлексивность
-          else Sirefl = true; // Сильная рефлексивность
-        }
-      }
-    } else if (arr[i][i] == 0) {
-      //Антирефлексивность
-      for (let k = 1; k < 10; k++) {
-        for (let j = 0; j < k - 1; j++) {
-          if (arr[k][j] == 0) Slanti = true; //Слабая антирефлексивность
-          if (Slanti == false) Sianti = true; // Сильная антирефлексивность
-        }
-      }
-    }
-  }
-
-  for (let i = 1; i < 10; i++) {
-    for (let j = 0; j < i - 1; j++) {
-      if (arr[i][j] != arr[j][i]) {
-        Simetr = false; // Симметричность
-      }
-      if (arr[i][i] == 1) {
-        AsSim = false;
-        if (Math.min(arr[i][j], arr[j][i]) != 0) AntiSim = false; // Антисимметрично
-      } else {
-        AntiSim = false;
-        if (Math.min(arr[i][j], arr[j][i]) != 0) AsSim = false; // Ассиметрично
-      }
-    }
-  }
-
-  document.getElementById('svoistvo1').innerHTML = Slrefl ? 'Слабо' : 'Сильно';
-  document.getElementById('svoistvo2').innerHTML = Slanti ? 'Слабо' : 'Сильно';
-  document.getElementById('svoistvo3').innerHTML = Simetr ? 'Да' : 'Нет';
-  document.getElementById('svoistvo4').innerHTML = AntiSim ? 'Да' : 'Нет';
-  document.getElementById('svoistvo5').innerHTML = AsSim ? 'Да' : 'Нет';
-  document.getElementById('svoistvo6').innerHTML = Line ? 'Сильно' : 'Слабо';
-  document.getElementById('svoistvo7').innerHTML = Tranz ? 'Да' : 'Нет';
 };
