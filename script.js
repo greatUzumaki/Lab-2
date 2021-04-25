@@ -135,12 +135,17 @@ const KillTable = () => {
   }
 };
 
-// Вычисление свойств
+// Свойства
 const Svoistva = (arr) => {
-  // рефлексивность
-  let refl = true;
-  let strongRefl = true;
-  let strongAntiRefl = true;
+  refl = true;
+  strongRefl = true;
+  strongAntiRefl = true;
+  simm = true;
+  antiSimm = true;
+  aSimm = true;
+  tranz = true;
+  strongLinear = true;
+  weakLinear = true;
 
   for (let i = 0; i < arr.length; i++) {
     if (arr[i][i] != 1) {
@@ -150,34 +155,30 @@ const Svoistva = (arr) => {
   }
 
   if (refl) {
-    out: for (let i = 0; i < arr.length; i++) {
+    strongAntiRefl = false;
+    outerLoop: for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < arr.length; j++) {
         if (i != j) {
           if (arr[i][j] == 1) {
             strongRefl = false;
-            break out;
+            break outerLoop;
           }
         }
       }
     }
   } else {
-    out: for (let i = 0; i < arr.length; i++) {
+    strongRefl = false;
+    outerLoop: for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < arr.length; j++) {
         if (i != j) {
           if (arr[i][j] == 0) {
             strongAntiRefl = false;
-            break out;
+            break outerLoop;
           }
         }
       }
     }
   }
-
-  // симметричность
-
-  let simm = true;
-  let antiSimm = true;
-  let aSimm = true;
 
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length; j++) {
@@ -186,10 +187,8 @@ const Svoistva = (arr) => {
       }
 
       if (i != j) {
-        // возможно тут неправильно и в будущем надо будет исправить
-
         if (arr[i][j] != 0 || arr[j][i] != 0) {
-          antiSimm = false; //
+          antiSimm = false;
         }
       }
 
@@ -199,27 +198,45 @@ const Svoistva = (arr) => {
     }
   }
 
-  for (let i = 0; i < 10; i++) {
-    for (let j = 0; j < 10; j++) {
-      if (Math.max(arr[i][j], arr[j][i]) != 1) LineSil = false; // Сильно линейно
-      if (Math.max(arr[i][j], arr[j][i]) <= 0) LineSl = false;
-      else Line = false; // Слабо линейно
+  minArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length; j++) {
+      for (let k = 0; k < arr.length; k++) {
+        if (!(arr[i][k] >= arr[i][j] && arr[i][k] >= arr[j][k])) {
+          tranz = false;
+        }
+      }
     }
   }
 
-  let m = [],
-    mm;
-
-  for (let i = 0; i < 10; i++) {
-    for (let j = 0; j < 10; j++) {
-      for (let k = 0; k < 10; k++) {
-        m[k] = Math.min(arr[i][k], arr[k][i]);
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length; j++) {
+      if (!(arr[i][j] == 1 || arr[j][i] == 1)) {
+        strongLinear = false;
       }
-      mm = m[1];
-      for (let l = 1; l < 10; l++) {
-        if (mm < m[l]) mm = m[l];
+      if (!(arr[i][j] > 0 || arr[j][i] > 0)) {
+        weakLinear = false;
       }
-      if (arr[i][j] < mm) Tranz = false;
     }
   }
+
+  document.getElementById('svoistvo1').innerHTML = refl
+    ? strongRefl
+      ? 'Сильно'
+      : 'Слабо'
+    : 'Нет';
+  document.getElementById('svoistvo2').innerHTML = !refl
+    ? strongAntiRefl
+      ? 'Сильно'
+      : 'Слабо'
+    : 'Нет';
+  document.getElementById('svoistvo3').innerHTML = simm ? 'Да' : 'Нет';
+  document.getElementById('svoistvo4').innerHTML = antiSimm ? 'Да' : 'Нет';
+  document.getElementById('svoistvo5').innerHTML = aSimm ? 'Да' : 'Нет';
+  document.getElementById('svoistvo6').innerHTML = strongLinear
+    ? 'Сильная'
+    : weakLinear
+    ? 'Слабая'
+    : 'Нет';
+  document.getElementById('svoistvo7').innerHTML = tranz ? 'Да' : 'Нет';
 };
