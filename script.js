@@ -137,15 +137,15 @@ const KillTable = () => {
 
 // Свойства
 const Svoistva = (arr) => {
-  refl = true;
-  strongRefl = true;
-  strongAntiRefl = true;
-  simm = true;
-  antiSimm = true;
-  aSimm = true;
-  tranz = true;
-  strongLinear = true;
-  weakLinear = true;
+  let refl = true;
+  let strongRefl = true;
+  let strongAntiRefl = true;
+  let simm = true;
+  let antiSimm = true;
+  let aSimm = true;
+  let tranz = true;
+  let strongLinear = true;
+  let weakLinear = true;
 
   for (let i = 0; i < arr.length; i++) {
     if (arr[i][i] != 1) {
@@ -180,32 +180,33 @@ const Svoistva = (arr) => {
     }
   }
 
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr.length; j++) {
+  for (let i = 1; i < 10; i++) {
+    for (let j = 0; j < i - 1; j++) {
       if (arr[i][j] != arr[j][i]) {
-        simm = false;
+        simm = false; // Симметричность
       }
-
-      if (i != j) {
-        if (arr[i][j] != 0 || arr[j][i] != 0) {
-          antiSimm = false;
-        }
-      }
-
-      if (arr[i][j] != 0 || arr[j][i] != 0) {
+      if (arr[i][i] == 1) {
         aSimm = false;
+        if (Math.min(arr[i][j], arr[j][i]) != 0) antiSimm = false; // Антисимметрично
+      } else {
+        antiSimm = false;
+        if (Math.min(arr[i][j], arr[j][i]) != 0) aSimm = false; // Ассиметрично
       }
     }
   }
 
-  minArr = [];
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr.length; j++) {
-      for (let k = 0; k < arr.length; k++) {
-        if (!(arr[i][k] >= arr[i][j] && arr[i][k] >= arr[j][k])) {
-          tranz = false;
-        }
+  let m = [],
+    mm;
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      for (let k = 0; k < 10; k++) {
+        m[k] = Math.min(arr[i][k], arr[k][i]);
       }
+      mm = m[1];
+      for (let l = 1; l < 10; l++) {
+        if (mm < m[l]) mm = m[l];
+      }
+      if (arr[i][j] < mm) tranz = false;
     }
   }
 
